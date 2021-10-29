@@ -27,7 +27,6 @@ app.use(bodyparser.urlencoded({ extended: false }));
 // home page
 
 app.get('/',(req,res) => {
-
         res.render('home')
 });
 
@@ -42,29 +41,20 @@ app.post('/',addDB,async (req,res) => {
 
 // requesting the shortened url 
 
-app.get('/:para',connectdb, async (req , res) => {
-
+app.get('/:para', async (req , res) => {
     var id= req.params.para 
     var wid =await Link.findOne({short: id},{long :1,_id:0});
     res.redirect(wid.long);
 })
 
-function connectdb(req, res, next){
-    connectDB();
-    next();
-    return;
-}
-
 async function addDB(req, res,next){
     const shorted= await generate();
     req.body.shorted = shorted;
-    const linkentry = new Link({
+    await Link.create({
         long: req.body.url,
         short: shorted
     });
-        await linkentry.save();
     next();
-    return;
 }
 
 

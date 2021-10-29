@@ -4,9 +4,6 @@ var generat = shortid.generate();
 
 const connectDB = require('./config/db');
 
-// connecting DB
-
-connectDB();
 
 const values = async () => {
     const arr = await links.find({});

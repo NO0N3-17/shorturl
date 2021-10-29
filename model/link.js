@@ -6,6 +6,6 @@ const linkschema = new schema({
     short: String
 });
 
-const Link= mongoose.model("Link",linkschema);
+const Link= mongoose.model("links",linkschema);
 
 module.exports=Link;
